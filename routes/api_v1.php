@@ -10,8 +10,8 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('/login', 'login');
 });
 
-Route::ApiResource('/tickets', TicketController::class);
-
+Route::middleware('auth:sanctum')->ApiResource('/tickets', TicketController::class);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
